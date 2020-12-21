@@ -12,18 +12,18 @@ const router = server.express;
 
 const userRepository = new UserRepository(connection);
 const userUsecase = new UserUsecase(userRepository);
-//const userController = new UserController(router, userUsecase);
-//userController.router();
-
-// server.run();
-
-router.get('/api/users', async (req, res) => {
-  const results = await userUsecase.getAll().catch((err) => {
-    console.log(err);
-    res.send(err);
-    return;
-  });
-  res.json(results);
-});
+const userController = new UserController(router, userUsecase);
+userController.router();
 
 server.run();
+
+// router.get('/api/users', async (req, res) => {
+//   const results = await userUsecase.getAll().catch((err) => {
+//     console.log(err);
+//     res.send(err);
+//     return;
+//   });
+//   res.json(results);
+// });
+
+// server.run();
