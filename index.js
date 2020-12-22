@@ -8,22 +8,12 @@ const UserRepository = require('./src/infrastructure/repository/UserRepository')
 
 const connection = createMySqlConnection(config);
 const server = new Server(config);
-const router = server.express;
+const express = server.express;
 
+// Users API
 const userRepository = new UserRepository(connection);
 const userUsecase = new UserUsecase(userRepository);
-const userController = new UserController(router, userUsecase);
-userController.router();
+const userController = new UserController(userUsecase);
+express.use('/api/', userController.router);
 
 server.run();
-
-// router.get('/api/users', async (req, res) => {
-//   const results = await userUsecase.getAll().catch((err) => {
-//     console.log(err);
-//     res.send(err);
-//     return;
-//   });
-//   res.json(results);
-// });
-
-// server.run();
