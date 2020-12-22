@@ -21,7 +21,7 @@ class UserUsecase {
 
   async update(userObj) {
     const user = new User(userObj.id, userObj.name, userObj.email, userObj.description);
-    return await this.userRepository.create(user);
+    return await this.userRepository.update(user);
   }
 
   async delete(id) {

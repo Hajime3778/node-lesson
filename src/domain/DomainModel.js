@@ -5,10 +5,23 @@ class DomainModel {
   }
 
   toObject() {
-    return {
-      createdAt: this.createdAt,
-      updatedAt: this.updatedAt,
-    };
+    const obj = {};
+
+    if(this.createdAt != null) {
+      obj.created_at = this.createdAt;
+    }
+    if(this.updatedAt != null) {
+      obj.updated_at = this.updatedAt;
+    }
+
+    return obj;
+  }
+
+  static deleteObjectCommonColumn(obj){
+    delete obj.created_at;
+    delete obj.updated_at;
+
+    return obj;
   }
 }
 
