@@ -29,7 +29,7 @@ npm run dev
 
 5. 起動確認
 下記にリクエストして、JSONが返却されたらOK  
-http://localhost:3000/api/users
+http://localhost:4000/api/users
 
 ## 終了方法
 
