@@ -13,6 +13,8 @@ export class TodoRepositoryImpl implements TodoRepository {
     const sql = 'select * from todos';
     return new Promise<Todo[]>((resolve, reject) => {
       this.connection.query(sql, (err, results) => {
+        if (err) return reject(err.message);
+
         const todos = results.map((todo: Todo) => {
           return {
             id: todo.id,
@@ -20,7 +22,8 @@ export class TodoRepositoryImpl implements TodoRepository {
             description: todo.description,
           } as Todo
         });
-        return err ? reject(err.message) : resolve(todos);
+
+        return resolve(todos);
       });
     });
   }
@@ -29,6 +32,9 @@ export class TodoRepositoryImpl implements TodoRepository {
     const sql = 'select * from todos where ?';
     return new Promise<Todo>((resolve, reject) => {
       this.connection.query(sql, { id: id }, (err, results) => {
+
+        if (err) return reject(err.message);
+
         const todos = results.map((todo: Todo) => {
           return {
             id: todo.id,
@@ -36,7 +42,8 @@ export class TodoRepositoryImpl implements TodoRepository {
             description: todo.description,
           } as Todo
         });
-        return err ? reject(err.message) : resolve(todos[0]);
+
+        return resolve(todos[0]);
       });
     });
   }
